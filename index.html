@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>8 Марта - Утиная история</title>
+    <style>
+        body {
+            background: #ffe6f2;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-family: 'Comic Sans MS', cursive;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            text-align: center;
+        }
+
+        .photo-frame {
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            overflow: hidden;
+            margin: 20px auto;
+            cursor: pointer;
+            border: 10px solid #ff69b4;
+            box-shadow: 0 0 20px rgba(255,105,180,0.5);
+            animation: rotate 4s infinite linear;
+        }
+
+        .photo-frame img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .caption {
+            font-size: 24px;
+            color: #ff1493;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+            margin: 20px 0;
+        }
+
+        #hidden-duck {
+            display: none;
+            position: fixed;
+            max-width: 150px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .hearts {
+            position: fixed;
+            font-size: 36px;
+            color: #ff69b4;
+            pointer-events: none;
+            animation: float 5s infinite;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0); opacity: 1; }
+            100% { transform: translateY(-100px); opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>С 8 Марта! 🦆💐</h1>
+        <div class="photo-frame" onclick="showDuck()">
+                      <img src="./photo_2025-03-08_02-25-42.jpg" alt="Поздравительная утка">
+        </div>
+        <div class="caption">Ты самая лучшая уточка!</div>
+    </div>
+
+    <img id="hidden-duck" src="./image-Photoroom.png" alt="Утка" onclick="moveDuck()">
+
+    <audio id="quack-sound" src="./mac-quack.mp3" preload="auto"></audio>
+
+    <script>
+        function showDuck() {
+            const duck = document.getElementById('hidden-duck');
+            const audio = document.getElementById('quack-sound');
+
+            duck.style.display = 'block';
+            duck.style.top = Math.random() * (window.innerHeight - 200) + 'px';
+            duck.style.left = Math.random() * (window.innerWidth - 200) + 'px';
+
+            audio.currentTime = 0;
+            audio.play();
+ 
+            createHearts();
+        }
+
+        function moveDuck() {
+            const duck = document.getElementById('hidden-duck');
+            duck.style.top = Math.random() * (window.innerHeight - 200) + 'px';
+            duck.style.left = Math.random() * (window.innerWidth - 200) + 'px';
+        }
+
+        function createHearts() {
+            for(let i = 0; i < 10; i++) {
+                const heart = document.createElement('div');
+                heart.className = 'hearts';
+                heart.innerHTML = '💖';
+                heart.style.left = Math.random() * window.innerWidth + 'px';
+                document.body.appendChild(heart);
+                
+                setTimeout(() => heart.remove(), 3000);
+            }
+        }
+    </script>
+</body>
+</html>
